@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Prince LMS API')
+    .setTitle('ecommerce backend')
     .setDescription('Authentication and LMS endpoints')
     .setVersion('1.0')
     .addBearerAuth() // Enables "Authorize" button for JWT tokens
@@ -13,6 +13,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // Accessible at /api
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(7005);
 }
 bootstrap();

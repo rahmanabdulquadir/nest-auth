@@ -19,7 +19,8 @@ model User {
   email            String    @unique
   phoneNumber      String    @unique
   password         String
-  role             Role
+  role             Role      @default(CUSTOMER)
+  sellerRequest    SellerRequestStatus? @default(PENDING)
   resetToken       String?
   resetTokenExpiry DateTime?
   createdAt        DateTime  @default(now())
@@ -30,4 +31,10 @@ enum Role {
   CUSTOMER
   SELLER
   ADMIN
+}
+
+enum SellerRequestStatus {
+  PENDING   // when user first asks to be a seller
+  APPROVED  // when admin approves the request
+  REJECTED  // when admin rejects the request
 }
