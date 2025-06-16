@@ -21,7 +21,7 @@ model User {
   email            String               @unique
   phoneNumber      String               @unique
   bio              String?
-  Addresses       Address[]
+  addresses       Address[]
   password         String
   role             Role                 @default(CUSTOMER)
   sellerRequest    SellerRequestStatus? @default(PENDING)
