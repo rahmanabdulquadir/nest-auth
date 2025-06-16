@@ -33,13 +33,13 @@ export class AuthService {
 
     const user = await this.prisma.user.create({
       data: {
-        fullName: dto.fullName,
-        email: dto.email,
-        phoneNumber: dto.phoneNumber,
-        password: hash,
-        role: 'CUSTOMER', // Set default role
-        sellerRequest: 'PENDING', // Set default request status
-      },
+      fullName: dto.fullName,
+      email: dto.email,
+      phoneNumber: dto.phoneNumber,
+      password: hash,
+      role: 'CUSTOMER',                 // Default role
+      sellerRequest: 'PENDING',         // Default status
+    },
     });
 
     return this.signToken(user);
