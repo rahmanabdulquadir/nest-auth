@@ -16,5 +16,6 @@ import { JwtAuthGuard } from 'src/common/guard/jwt.guard';
   ],
   providers: [AuthService, PrismaService, JwtStrategy, MailService, JwtAuthGuard],
   controllers: [AuthController],
+   exports: [JwtModule],
 })
 export class AuthModule {}

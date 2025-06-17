@@ -22,28 +22,35 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
-  async register(dto: RegisterDto) {
-    const userExists = await this.prisma.user.findUnique({
-      where: { email: dto.email },
-    });
+async register(dto: RegisterDto) {
+  const userExists = await this.prisma.user.findUnique({
+    where: { email: dto.email },
+  });
 
-    if (userExists) throw new BadRequestException('Email already in use');
+  if (userExists) throw new BadRequestException('Email already in use');
 
-    const hash = await bcrypt.hash(dto.password, 10);
+  // const phoneExists = await this.prisma.user.findUnique({
+  //   where: { phoneNumber: dto.phoneNumber },
+  // });
 
-    const user = await this.prisma.user.create({
-      data: {
+  // if (phoneExists) throw new BadRequestException('Phone number already in use');
+
+  const hash = await bcrypt.hash(dto.password, 10);
+
+  const user = await this.prisma.user.create({
+    data: {
       fullName: dto.fullName,
       email: dto.email,
       phoneNumber: dto.phoneNumber,
       password: hash,
-      role: 'CUSTOMER',                 // Default role
-      sellerRequest: 'PENDING',         // Default status
+      role: 'CUSTOMER',
+      sellerRequest: 'PENDING',
     },
-    });
+  });
 
-    return this.signToken(user);
-  }
+  return this.signToken(user);
+}
+
 
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findUnique({
